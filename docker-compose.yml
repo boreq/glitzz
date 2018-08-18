@@ -1,0 +1,7 @@
+version: '3'
+services:
+  glitzz:
+    build: .
+    volumes:
+      - ./_data:/data
+    restart: always

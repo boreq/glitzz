@@ -31,4 +31,43 @@ clean:
 dependencies:
 	go get -t ./...
 
-.PHONY: all ci build run doc test test-ci test-verbose test-short clean dependencies
+docker:
+	@echo 
+	@echo "    If you are creating the image for the first time and want to create a default config run:"
+	@echo "        $$ make docker-init"
+	@echo "        $$ cat _data/config.json"
+	@echo 
+	@echo 
+	@echo "    If you want to update the image without creating the config run:"
+	@echo "        $$ git pull"
+	@echo "        $$ make docker-build"
+	@echo 
+	@echo 
+	@echo "    If you want to stop the image run:"
+	@echo "        $$ make docker-stop"
+	@echo 
+	@echo 
+	@echo "    If you want to start the image run:"
+	@echo "        $$ make docker-start"
+	@echo 
+	@echo 
+
+docker-init: docker-create-directories docker-build docker-create-config
+
+docker-create-directories:
+	mkdir -p _data
+
+docker-create-config:
+	sudo docker-compose run --rm glitzz glitzz default_config >> _data/config.json
+
+docker-build:
+	sudo docker-compose build
+	sudo docker-compose up --no-start
+
+docker-start:
+	sudo docker-compose start
+
+docker-stop:
+	sudo docker-compose stop
+
+.PHONY: all ci build run doc test test-ci test-verbose test-short clean dependencies docker docker-init docker-create-directories docker-create-config docker-build docker-start docker-stop

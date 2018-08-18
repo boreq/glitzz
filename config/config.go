@@ -72,13 +72,13 @@ func Default() Config {
 			QuotesDirectory: "_quotes",
 		},
 		Tell: TellConfig{
-			TellFile: "_data/tell.json",
+			TellFile: "/data/tell.json",
 		},
 		Seen: SeenConfig{
-			SeenFile: "_data/seen.json",
+			SeenFile: "/data/seen.json",
 		},
 		Reminders: RemindersConfig{
-			RemindersFile: "_data/reminders.json",
+			RemindersFile: "/data/reminders.json",
 		},
 	}
 	return conf
